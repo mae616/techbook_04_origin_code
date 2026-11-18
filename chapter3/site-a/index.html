@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>サイトA：CORSの実験</title>
+</head>
+<body>
+  <h1>サイトA（ポート 3000）</h1>
+  <!-- ボタンごとに、頼み方を変えて試す -->
+  <button id="get">一覧を読む（GET）</button>
+  <button id="post">投稿する（JSONのPOST）</button>
+  <button id="cookie">Cookie付きで読む</button>
+
+  <script>
+    // 頼む先：4000番のAPI（別のオリジン）
+    const api = 'http://localhost:4000/api/posts';
+
+    // fetchの結果を、ラベル付きでConsoleに出す
+    function show(label, promise) {
+      promise
+        // 返事が届いたら、okと状態コードを見る
+        .then((response) => {
+          console.log(`[${label}] ok:`, response.ok, response.status);
+          return response.json();
+        })
+        .then((data) => console.log(`[${label}] 読めた:`, data))
+        // 止められると、TypeErrorでここに来る
+        .catch((error) => {
+          console.log(`[${label}] 読めない:`,
+            error.name, error.message);
+        });
+    }
+
+    // 一覧を読む：ふつうのGET
+    document.querySelector('#get').addEventListener('click', () => {
+      show('get', fetch(api));
+    });
+
+    // 投稿する：JSONの本文をPOSTで送る
+    document.querySelector('#post').addEventListener('click', () => {
+      show('post', fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: 'サイトAから' }),
+      }));
+    });
+
+    // Cookie付きの頼み：試しのCookieを作って送る
+    document.querySelector('#cookie').addEventListener('click', () => {
+      document.cookie = 'session=abc123';
+      // include：別のオリジンにもCookieを付ける
+      show('cookie', fetch(api, { credentials: 'include' }));
+    });
+  </script>
+</body>
+</html>

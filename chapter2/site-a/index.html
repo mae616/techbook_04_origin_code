@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>サイトA：壁の実験</title>
+</head>
+<body>
+  <h1>サイトA（ポート 3000）</h1>
+
+  <h2>1. 埋め込む（img）</h2>
+  <!-- サイトB（3001番）の画像を埋め込む -->
+  <img src="http://localhost:3001/logo.png"
+       alt="サイトBの画像" width="120">
+
+  <h2>2. 送る（form）</h2>
+  <!-- 押すと、q=helloをサイトBへ送る -->
+  <form action="http://localhost:3001/" method="get">
+    <input name="q" value="hello">
+    <button>サイトBへ送る</button>
+  </form>
+
+  <h2>3. 読む（fetch）</h2>
+  <!-- 押すと、下のscriptでdata.jsonを読む -->
+  <button id="read">サイトBのデータを読む</button>
+
+  <h2>4. 読む（iframe）</h2>
+  <!-- サイトBをはめこみ、ボタンで中を読む -->
+  <iframe src="http://localhost:3001/"
+          width="400" height="80"></iframe>
+  <button id="peek">iframeの中を読む</button>
+
+  <script>
+    // 3. fetchで、サイトBのdata.jsonを読む
+    document.querySelector('#read').addEventListener('click', () => {
+      fetch('http://localhost:3001/data.json')
+        // 読めたら、届いた中身をJSONとして表示する
+        .then((response) => response.json())
+        .then((data) => console.log('[read] 読めた:', data))
+        // 読めなければ、エラーの種類と文を出す
+        .catch((error) => {
+          console.log('[read] 読めない:', error.name, error.message);
+        });
+    });
+
+    // 4. iframeの中の文書のタイトルを読む
+    document.querySelector('#peek').addEventListener('click', () => {
+      try {
+        const frame = document.querySelector('iframe');
+        const doc = frame.contentWindow.document;
+        console.log('[peek] 読めた:', doc.title);
+      } catch (error) {
+        // 読めなければ、エラーの種類を出す
+        console.log('[peek] 読めない:', error.name);
+      }
+    });
+  </script>
+</body>
+</html>

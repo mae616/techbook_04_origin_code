@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>プレビュー</title>
+</head>
+<body>
+  <p>プレビュー（ポート 3001）</p>
+  <script>
+    // 親から届いた手紙（コード）を受け取る
+    window.addEventListener('message', (event) => {
+      // 差出人が親（3000番）でなければ捨てる
+      if (event.origin !== 'http://localhost:3000') {
+        return;
+      }
+      // console.logに渡された値を集める
+      const logs = [];
+      const log = (...values) => logs.push(values.join(' '));
+      // 届いた文字列を、コードとして動かす
+      try {
+        new Function('console', event.data)({ log });
+      } catch (error) {
+        logs.push(`${error.name}: ${error.message}`);
+      }
+      // 宛先を書いて、結果を親へ送り返す
+      event.source.postMessage(logs, 'http://localhost:3000');
+    });
+  </script>
+</body>
+</html>

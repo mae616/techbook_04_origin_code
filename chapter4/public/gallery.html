@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>画像ギャラリー</title>
+</head>
+<body>
+  <h1>画像ギャラリー</h1>
+  <!-- 12枚とも同じ形。lazyで後回しにし、大きさも書く -->
+  <p><img src="images/photo1.png" loading="lazy"
+          width="400" height="300" alt="写真1"></p>
+  <p><img src="images/photo2.png" loading="lazy"
+          width="400" height="300" alt="写真2"></p>
+  <p><img src="images/photo3.png" loading="lazy"
+          width="400" height="300" alt="写真3"></p>
+  <p><img src="images/photo4.png" loading="lazy"
+          width="400" height="300" alt="写真4"></p>
+  <p><img src="images/photo5.png" loading="lazy"
+          width="400" height="300" alt="写真5"></p>
+  <p><img src="images/photo6.png" loading="lazy"
+          width="400" height="300" alt="写真6"></p>
+  <p><img src="images/photo7.png" loading="lazy"
+          width="400" height="300" alt="写真7"></p>
+  <p><img src="images/photo8.png" loading="lazy"
+          width="400" height="300" alt="写真8"></p>
+  <p><img src="images/photo9.png" loading="lazy"
+          width="400" height="300" alt="写真9"></p>
+  <p><img src="images/photo10.png" loading="lazy"
+          width="400" height="300" alt="写真10"></p>
+  <p><img src="images/photo11.png" loading="lazy"
+          width="400" height="300" alt="写真11"></p>
+  <p><img src="images/photo12.png" loading="lazy"
+          width="400" height="300" alt="写真12"></p>
+  <script>
+    // HTMLを読み終えた時刻（ミリ秒）を出す
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('[DOMContentLoaded]', performance.now());
+    });
+    // 画像なども、そろった時刻を出す
+    window.addEventListener('load', () => {
+      console.log('[load]', performance.now());
+    });
+  </script>
+</body>
+</html>

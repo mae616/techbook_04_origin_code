@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>4通りのスクリプト</title>
+  <!-- 1秒遅れて届くスクリプトを、4通りで読み込む -->
+  <script src="/slow.js?name=normal"></script>
+  <script async src="/slow.js?name=async"></script>
+  <script defer src="/slow.js?name=defer"></script>
+  <script type="module" src="/slow.js?name=module"></script>
+</head>
+<body>
+  <h1>4通りのスクリプト</h1>
+  <!-- 動いたとき、これがDOMにあるかを見る -->
+  <p id="last">いちばん下の要素</p>
+  <script>
+    // HTMLを最後まで読み終えたら、ログを出す
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('[DOMContentLoaded]');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>固まり方の実験</title>
+</head>
+<body>
+  <h1>親ページ（localhost）</h1>
+  <iframe id="frame" width="400" height="80"></iframe>
+  <p>いちばん長い間隔：<b id="gap">計測中</b></p>
+  <script>
+    // ?host=で、iframeを読み込むホストを選ぶ
+    const params = new URLSearchParams(location.search);
+    const host = params.get('host') ?? 'localhost';
+    document.querySelector('#frame').src =
+      `http://${host}:8001/child.html`;
+
+    // 100ミリ秒ごとに、前回からの間隔を測り、
+    // いちばん長くあいた間隔を残しておく
+    let last = performance.now();
+    let maxGap = 0;
+    const id = setInterval(() => {
+      const now = performance.now();
+      maxGap = Math.max(maxGap, now - last);
+      last = now;
+    }, 100);
+
+    // 7秒たったら測るのをやめ、結果を出す
+    setTimeout(() => {
+      clearInterval(id);
+      const gap = document.querySelector('#gap');
+      gap.textContent = `${Math.round(maxGap)} ms`;
+    }, 7000);
+  </script>
+</body>
+</html>

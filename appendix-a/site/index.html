@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- CSP：同じオリジンのスクリプトだけ動かす -->
+    <meta http-equiv="Content-Security-Policy"
+          content="script-src 'self'" />
+    <title>私のポートフォリオへようこそ！</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- defer：HTMLを読み終えてから動かす -->
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>★ 私のポートフォリオ ★</h1>
+        <div class="counter">
+          あなたは <span id="visitorCount">?</span> 人目の訪問者です！
+        </div>
+      </header>
+
+      <nav>
+        <ul>
+          <li><a href="#profile">プロフィール</a></li>
+          <li><a href="#works">作品</a></li>
+          <li><a href="#guestbook">ゲストブック</a></li>
+        </ul>
+      </nav>
+
+      <main>
+        <section id="profile">
+          <h2>☆ プロフィール ☆</h2>
+          <p>はじめまして！私のポートフォリオにようこそ！</p>
+          <p>好きなもの：プログラミング、猫、音楽</p>
+        </section>
+
+        <section id="works">
+          <h2>☆ 作品 ☆</h2>
+          <ul id="work-list" class="work-list"></ul>
+          <p>動かした結果：</p>
+          <pre id="result"></pre>
+          <!-- 作品のコードは、別のサイトの砂場で動かす -->
+          <iframe id="preview" src="http://127.0.0.1:3001/runner.html"
+                  sandbox="allow-scripts"
+                  width="300" height="40"></iframe>
+        </section>
+
+        <section id="guestbook">
+          <h2>☆ ゲストブック ☆</h2>
+          <ul id="entries"></ul>
+          <form id="guestbook-form">
+            <input name="author" placeholder="お名前" required />
+            <input name="message" placeholder="ひとこと" required />
+            <button>書き込む</button>
+          </form>
+        </section>
+      </main>
+
+      <footer>
+        <p>このポートフォリオは、3巻分の道具でできています</p>
+      </footer>
+    </div>
+  </body>
+</html>

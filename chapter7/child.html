@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>子ページ</title>
+</head>
+<body>
+  <p>子ページ：<b id="origin"></b></p>
+  <script>
+    // 自分のオリジンを出す（どちらのサイトか）
+    document.querySelector('#origin').textContent = location.origin;
+    // 1秒待ってから、重いループに入る
+    setTimeout(() => {
+      const end = Date.now() + 4000;
+      while (Date.now() < end) {
+        // 4秒間、メインスレッドをふさぐ
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

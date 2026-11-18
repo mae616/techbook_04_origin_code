@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ミニプレビュー</title>
+</head>
+<body>
+  <h1>ミニプレビュー（ポート 3000）</h1>
+  <!-- コードを書く欄と、結果を出す欄 -->
+  <textarea id="code" rows="4" cols="50">console.log(1 + 2);</textarea>
+  <button id="run">実行</button>
+  <pre id="result"></pre>
+
+  <!-- プレビュー：sandboxで閉じ込める（3001番） -->
+  <iframe id="preview" src="http://localhost:3001/runner.html"
+          sandbox="allow-scripts" width="300" height="60"></iframe>
+  <!-- 広告：5.5節で使う（3002番） -->
+  <iframe src="http://localhost:3002/ad.html"
+          width="300" height="60"></iframe>
+
+  <script>
+    const preview = document.querySelector('#preview');
+    // ?check を付けると、差出人を確かめる
+    const check = new URLSearchParams(location.search).has('check');
+
+    // 「実行」で、コードを手紙にして送る
+    document.querySelector('#run').addEventListener('click', () => {
+      const code = document.querySelector('#code').value;
+      // sandboxの中は名指しできない（5.5節）
+      preview.contentWindow.postMessage(code, '*');
+    });
+
+    // 届いた手紙（結果）を受け取って表示する
+    window.addEventListener('message', (event) => {
+      console.log('[親] 差出人:', event.origin);
+      // プレビュー以外からの手紙は捨てる
+      if (check && event.source !== preview.contentWindow) {
+        console.log('[親] プレビューからではない');
+        return;
+      }
+      const result = document.querySelector('#result');
+      result.textContent = event.data.join('\n');
+    });
+  </script>
+</body>
+</html>

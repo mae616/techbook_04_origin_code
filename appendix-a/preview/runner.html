@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>プレビュー</title>
+</head>
+<body>
+  <p>プレビュー（ポート 3001）</p>
+  <script>
+    window.addEventListener('message', (event) => {
+      if (event.origin !== 'http://localhost:3000') {
+        return;
+      }
+      const logs = [];
+      const log = (...values) => logs.push(values.join(' '));
+      try {
+        new Function('console', event.data)({ log });
+      } catch (error) {
+        logs.push(`${error.name}: ${error.message}`);
+      }
+      event.source.postMessage(logs, 'http://localhost:3000');
+    });
+  </script>
+</body>
+</html>

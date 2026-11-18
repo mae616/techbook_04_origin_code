@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>コメント欄</title>
+</head>
+<body>
+  <h1>コメント欄</h1>
+  <input id="text" size="40">
+  <button id="post">投稿</button>
+  <ul id="list"></ul>
+
+  <!-- 印（nonce）はサーバーが毎回書き換える -->
+  <script nonce="NONCE">
+    // ?safe を付けると、安全な入れ方になる
+    const safe = new URLSearchParams(location.search).has('safe');
+
+    // 投稿されたら、一覧に1行足す
+    document.querySelector('#post').addEventListener('click', () => {
+      const li = document.createElement('li');
+      const text = document.querySelector('#text').value;
+      if (safe) {
+        // 文字は文字のまま入れる（安全）
+        li.textContent = text;
+      } else {
+        // ここが危ない：文字をHTMLとして入れている
+        li.innerHTML = text;
+      }
+      document.querySelector('#list').append(li);
+    });
+  </script>
+</body>
+</html>

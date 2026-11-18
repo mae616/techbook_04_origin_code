@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>タイマーの間隔</title>
+</head>
+<body>
+  <h1>100ミリ秒ごとのタイマー</h1>
+  <ol id="log"></ol>
+  <script>
+    // 100ミリ秒ごとに、前回からの間隔を測る
+    let last = performance.now();
+    setInterval(() => {
+      const now = performance.now();
+      const gap = Math.round(now - last);
+      last = now;
+      // 長くあいた回だけ、タブの状態と一緒に記録
+      if (gap > 150) {
+        const li = document.createElement('li');
+        const state = document.visibilityState;
+        li.textContent = `${gap} ms（${state}）`;
+        document.querySelector('#log').append(li);
+      }
+    }, 100);
+  </script>
+</body>
+</html>

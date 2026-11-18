@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>広告</title>
+</head>
+<body>
+  <p>広告（ポート 3002）</p>
+  <script>
+    // 3秒ごとに、親へ偽の手紙を送る
+    setInterval(() => {
+      parent.postMessage(['偽の結果です'], '*');
+    }, 3000);
+  </script>
+</body>
+</html>
