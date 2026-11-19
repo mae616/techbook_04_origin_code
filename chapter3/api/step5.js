@@ -1,6 +1,6 @@
 const http = require('node:http');
 
-// 投稿の一覧（メモリに置くだけ）
+// 投稿の一覧（ファイルには保存しない。サーバーを止めると消える）
 const posts = [
   { id: 1, title: 'はじめての投稿' },
   { id: 2, title: 'CORSを試しています' },

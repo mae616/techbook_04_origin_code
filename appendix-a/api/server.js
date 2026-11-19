@@ -2,7 +2,7 @@ const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
 
-// データはメモリに置くだけ（止めると消える）
+// データはファイルには保存しない（サーバーを止めると消える）
 let visits = 0;
 // codeは、プレビューの砂場で動かすコード
 const works = [
