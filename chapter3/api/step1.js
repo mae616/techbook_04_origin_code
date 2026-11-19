@@ -8,22 +8,22 @@ const posts = [
 
 // リクエストが届くたびに、この関数が動く
 const server = http.createServer((request, response) => {
-  // メソッド・URL・Originをターミナルに出す
+  // 届いたリクエストの3つの値をターミナルに出す
   console.log(request.method, request.url, request.headers.origin);
 
-  // GET：投稿の一覧をJSONで返す
+  // 場所が/api/posts、メソッドがGETなら、投稿の一覧をJSONで返す
   if (request.url === '/api/posts' && request.method === 'GET') {
     response.setHeader('Content-Type', 'application/json');
     response.end(JSON.stringify(posts));
     return;
   }
 
-  // POST：送られたJSONを受け取り、投稿に足す
+  // 場所が/api/posts、メソッドがPOSTなら、送られた投稿を一覧に足す
   if (request.url === '/api/posts' && request.method === 'POST') {
     let body = '';
-    // 本文は小分けに届くので、つないでおく
+    // 送られた文字列は何回かに分けて届くので、bodyにつなげて1つにする
     request.on('data', (chunk) => { body += chunk; });
-    // 届き終わったら、投稿を足して返す
+    // 全部届いたら、JSONとして読み、投稿を足して返す
     request.on('end', () => {
       const title = JSON.parse(body).title;
       const post = { id: posts.length + 1, title };

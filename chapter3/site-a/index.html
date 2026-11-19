@@ -31,12 +31,12 @@
         });
     }
 
-    // 一覧を読む：ふつうのGET
+    // 一覧を読む：fetchにメソッドを指定しないと、GETで頼む
     document.querySelector('#get').addEventListener('click', () => {
       show('get', fetch(api));
     });
 
-    // 投稿する：JSONの本文をPOSTで送る
+    // 投稿する：投稿をJSONの文字列にして、POSTで送る
     document.querySelector('#post').addEventListener('click', () => {
       show('post', fetch(api, {
         method: 'POST',
