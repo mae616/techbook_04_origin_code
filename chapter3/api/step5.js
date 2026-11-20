@@ -13,12 +13,12 @@ const server = http.createServer((request, response) => {
   // ステップ5：届いたCookieも出す
   console.log('Cookie:', request.headers.cookie);
   // ステップ5：オリジンを名指しし、Cookie付きを許す
-  const origin = 'http://localhost:3000';
-  response.setHeader('Access-Control-Allow-Origin', origin);
+  const allowedOrigin = 'http://localhost:3000';
+  response.setHeader('Access-Control-Allow-Origin', allowedOrigin);
   response.setHeader('Access-Control-Allow-Credentials', 'true');
   // ステップ4：Content-Typeのヘッダーを許す
   response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  // ステップ5：返事がオリジンで変わる、という印
+  // ステップ5：Originが違えば別の返事だ、とキャッシュに伝える
   response.setHeader('Vary', 'Origin');
 
   // ステップ3：プリフライト（OPTIONS）に204で答える
