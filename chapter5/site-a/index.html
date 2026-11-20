@@ -26,7 +26,7 @@
     // 「実行」で、コードを手紙にして送る
     document.querySelector('#run').addEventListener('click', () => {
       const code = document.querySelector('#code').value;
-      // sandboxの中は名指しできない（5.5節）
+      // sandboxの中は宛先に指定できない（5.5節）
       preview.contentWindow.postMessage(code, '*');
     });
 

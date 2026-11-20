@@ -12,7 +12,7 @@ const server = http.createServer((request, response) => {
   console.log(request.method, request.url, request.headers.origin);
   // ステップ5：届いたCookieも出す
   console.log('Cookie:', request.headers.cookie);
-  // ステップ5：オリジンを名指しし、Cookie付きを許す
+  // ステップ5：許すオリジンを指定し、Cookie付きを許す
   const allowedOrigin = 'http://localhost:3000';
   response.setHeader('Access-Control-Allow-Origin', allowedOrigin);
   response.setHeader('Access-Control-Allow-Credentials', 'true');

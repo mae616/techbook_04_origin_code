@@ -26,7 +26,7 @@ async function showWorks() {
     const button = document.createElement('button');
     button.textContent = 'コードを動かす';
     button.addEventListener('click', () => {
-      // sandboxの中は名指しできない（第5章）
+      // sandboxの中は宛先に指定できない（第5章）
       preview.contentWindow.postMessage(work.code, '*');
     });
     const item = document.createElement('li');
